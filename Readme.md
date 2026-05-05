@@ -7,5 +7,18 @@
     -authorId
     -createdAt
     -updatedAt
--User
+    -publishAt
+- User
+  -id
+  -name
+  -email
+  -password
+  -createAt
+  -updateAt
+  -profile
 - Profile
+   -id
+   -bio
+   -createdAt
+   -updatedAt
+   -userId
