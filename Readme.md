@@ -1,10 +1,10 @@
 # Blog app
 
 ## requirements
- - user can post and publish blog content
- -user can see post
- -authentication system
- -user can see their own profile
+    - user can post and publish blog content
+    -user can see post
+    -authentication system
+    -user can see their own profile
 
 ## Table
 
@@ -30,3 +30,10 @@
    -createdAt
    -updatedAt
    -userId
+
+## Technology
+
+-graphql
+-typescript
+-postgresql
+-prisma
