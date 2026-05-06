@@ -31,17 +31,16 @@ const resolvers = {
   },
 };
 
-const main=async () => {
+const main = async () => {
   const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+    typeDefs,
+    resolvers,
+  });
 
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
-});
-
-console.log(`🚀  Server ready at: ${url}`);
-}
-main()
+  console.log(`🚀  Server ready at: ${url}`);
+};
+main();
