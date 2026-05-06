@@ -1,0 +1,8 @@
+{
+  "name": "Blog-App",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nur21horin/Blog-App.git",
+  "author": "Nur Mohammod <nurm98371@gmail.com>",
+  "license": "MIT"
+}

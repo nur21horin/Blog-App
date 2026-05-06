@@ -17,13 +17,13 @@
     -updatedAt
     -publishAt
 - User
-  -id
-  -name
-  -email
-  -password
-  -createAt
-  -updateAt
-  -profile
+    -id
+    -name
+    -email
+    -password
+    -createAt
+    -updateAt
+    -profile
 - Profile
    -id
    -bio
