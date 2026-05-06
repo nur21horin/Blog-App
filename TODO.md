@@ -1,0 +1,5 @@
+- [ ] Fix runtime module resolution for ESM by adding a build + dist-based dev script.
+- [ ] Add tsconfig.build.json for clean build.
+- [ ] Update package.json scripts (build/dev/start).
+- [ ] Build with tsc and run server from dist.
+- [ ] Verify health endpoint works: http://localhost:4000/\_health
