@@ -38,5 +38,16 @@ export const resolvers = {
         where: { email: args.email },
       });
       
+      if (!user) {
+       return{
+        token: null
+       }
+      }
+      const correctPassword = await bcrypt.compare(args.password, user?.password || "");
+      if (!correctPassword) {
+        return {
+          token: null,
+        };
+      }
   },
 };
