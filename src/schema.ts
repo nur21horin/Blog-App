@@ -6,9 +6,14 @@ posts: [Post]
 
 }
 
-type Mutation {
-signup(name:String!,email:String!,password:String!): User
-}
+  type Mutation {
+    signup(name: String!, email: String!, password: String!):AuthPayload,
+    signin(email: String!, password: String!):AuthPayload
+  }
+
+  type AuthPayload{
+  token: String
+  }
  type Post{
   id: ID!
   title: String!
