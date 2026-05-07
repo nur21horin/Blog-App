@@ -12,7 +12,9 @@ posts: [Post]
   }
 
   type AuthPayload{
+  userError: String
   token: String
+
   }
  type Post{
   id: ID!

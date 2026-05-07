@@ -31,7 +31,10 @@ export const resolvers = {
       const token = jwt.sign({ userId: newUser.id }, "signature", {
         expiresIn: "1d",
       });
-      return { token };
+      return {
+        userError: null,
+         token
+         };
     },
     signin: async (parent: any, args: UserInfo, context: any) => {
       const user = await prisma.user.findFirst({
@@ -40,14 +43,23 @@ export const resolvers = {
       
       if (!user) {
        return{
+          userError: "User not found",
         token: null
        }
       }
       const correctPassword = await bcrypt.compare(args.password, user?.password || "");
       if (!correctPassword) {
         return {
+          userError: "Invalid password",
           token: null,
         };
       }
+      const token = jwt.sign({ userId: user.id }, "signature", {
+        expiresIn: "1d",
+      });
+      return {
+        userError: null,
+        token };
+    },
   },
 };
