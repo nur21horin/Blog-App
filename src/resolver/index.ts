@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../lib/prisma.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"; 
+import jwt from "jsonwebtoken";
 
-const prisma = new PrismaClient();
+
 interface UserInfo {
   name: string;
   email: string;
@@ -21,15 +21,22 @@ export const resolvers = {
   Mutation: {
     signup: async (parent: any, args: UserInfo, context: any) => {
       const hashedPassword = await bcrypt.hash(args.password, 10);
-      const newUser= await prisma.user.create({
+      const newUser = await prisma.user.create({
         data: {
           name: args.name,
           email: args.email,
           password: hashedPassword,
         },
       });
-      const token=jwt.sign({ userId: newUser.id },"signature",{ expiresIn: "1d" });
+      const token = jwt.sign({ userId: newUser.id }, "signature", {
+        expiresIn: "1d",
+      });
       return { token };
     },
+    signin: async (parent: any, args: UserInfo, context: any) => {
+      const user = await prisma.user.findFirst({
+        where: { email: args.email },
+      });
+      
   },
 };
