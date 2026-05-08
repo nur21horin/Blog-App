@@ -6,10 +6,12 @@ import config from "../config/index.js";
 import { Query } from "./Query/Query.js";
 import { Mutation } from "./Mutation/Mutation.js";
 import { Post } from "./post.js";
+import { User } from "./user.js";
 
 export const resolvers = {
   Query,
   Post,
+  User,
   Mutation,
   
 };
