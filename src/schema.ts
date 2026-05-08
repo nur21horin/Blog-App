@@ -7,7 +7,7 @@ posts: [Post]
 }
 
   type Mutation {
-    signup(name: String!, email: String!, password: String!):AuthPayload,
+    signup(name: String!, email: String!, password: String!,bio:String):AuthPayload,
     signin(email: String!, password: String!):AuthPayload
   }
 

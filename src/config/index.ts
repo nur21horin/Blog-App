@@ -1,6 +1,5 @@
-import path from "path";
-require('dotenv').config({path:path.join(process.cwd(), '.env')});
+import "dotenv/config";
 
 export default {
- secret: process.env.JWT_SIGN || "signature",
+  secret: process.env.JWT_SIGN || "signature",
 };
