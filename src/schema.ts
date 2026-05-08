@@ -10,7 +10,7 @@ posts: [Post]
     signup(name: String!, email: String!, password: String!,bio:String):AuthPayload,
     signin(email: String!, password: String!):AuthPayload,
     addPost(title: String!, content: String!): PostPayload,
-    updatePost(id: ID!, title: String, content: String, published: Boolean): Post,
+    updatePost(id: ID!, title: String, content: String): PostPayload,
     deletePost(id: ID!): Post
 
   }

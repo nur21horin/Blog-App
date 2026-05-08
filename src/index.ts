@@ -9,7 +9,8 @@ import type { DefaultArgs } from "@prisma/client/runtime/library.js";
 import { jwtHelper } from "./utilis/jwtHealper.js";
 
 interface Context {
-  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+  prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
+  usrInfo: { userId: number ||null } | null,
 }
 
 const main = async () => {
@@ -24,6 +25,7 @@ const main = async () => {
       const userInfo=await jwtHelper.getUserInfoFromToken(req.headers.authorization as String);,
       return {
         prisma,
+        userInfo,
       };
     },
   });
