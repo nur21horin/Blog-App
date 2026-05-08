@@ -3,6 +3,16 @@ export const Query = {
     return await prisma.user.findMany();
   },
   posts: async (parent: any, args: any, { prisma }: any) => {
-    return await prisma.post.findMany();
+    return await prisma.post.findMany(
+      {
+        where:{
+          published:true
+        },
+        oderBy:[
+          {createdAt:"desc"}
+        
+        ]
+      }
+    );
   },
 };

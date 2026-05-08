@@ -114,7 +114,7 @@ export const Mutation = {
     }
 
     const existingPost = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: Number(args.postId) },
     });
     if (!existingPost) {
       return {
@@ -142,4 +142,76 @@ export const Mutation = {
       post: updatedPost,
     };
   },
+  publishPost: async (
+    parent: any,
+    { postId }: any,
+    { prisma, userInfo }: any,
+  ) => {
+    if (!userInfo) {
+      return {
+        userError: "Unauthorized",
+        post: null,
+      };
+    }
+    const existingPost = await prisma.post.findUnique({
+      where: { id: Number(postId) },
+    });
+    if (!existingPost) {
+      return {
+        userError: "Post not found",
+        post: null,
+      };
+    }
+    if (existingPost.authorId !== userInfo.userId) {
+      return {
+        userError: "You can only publish your own posts",
+        post: null,
+      };
+    }
+    const publishedPost = await prisma.post.update({
+      where: { id: Number(postId) },
+      data: {
+        published: true,
+      },
+    });
+    return {
+      userError: null,
+      post: publishedPost,
+    };
+  },
+  deletePost: async (
+    parent: any,
+    { postId }: any,
+    { prisma, userInfo }: any,
+  ) => {
+    if (!userInfo) {
+      return {
+        userError: "Unauthorized",
+        post: null,
+      };
+    }
+    const existingPost = await prisma.post.findUnique({
+      where: { id: Number(postId) },
+    });
+    if (!existingPost) {
+      return {
+        userError: "Post not found",
+        post: null,
+      };
+    }
+    if (existingPost.authorId !== userInfo.userId) {
+      return {
+        userError: "You can only delete your own posts",
+        post: null,
+      };
+    }
+    await prisma.post.delete({
+      where: { id: Number(postId) },
+    });
+    return {
+      userError: null,
+      post: existingPost,
+    };
+  }
+  
 };
