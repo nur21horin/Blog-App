@@ -76,14 +76,14 @@ export const Mutation = {
       token,
     };
   },
-  addPost: async (parent: any, {post}: any, { prisma, userInfo }: any) => {
+  addPost: async (parent: any, { post }: any, { prisma, userInfo }: any) => {
     if (!userInfo) {
       return {
         userError: "Unauthorized",
         post: null,
       };
     }
-    if (post.title || !post.content) {
+    if (!post.title || !post.content) {
       return {
         userError: "Title and content are required",
         post: null,
@@ -101,50 +101,45 @@ export const Mutation = {
       post: newPost,
     };
   },
-    updatePost: async (parent: any, { id, post }: any, { prisma, userInfo }: any) => {
+  updatePost: async (
+    parent: any,
+    { id, post }: any,
+    { prisma, userInfo }: any,
+  ) => {
     if (!userInfo) {
       return {
         userError: "Unauthorized",
         post: null,
       };
     }
-    const user = await prisma.post.findUnique({
-      where: { id:userInfo.userId },
+
+    const existingPost = await prisma.post.findUnique({
+      where: { id: Number(id) },
     });
-    if (!user) {
+    if (!existingPost) {
       return {
-        userError: "User not found",
+        userError: "Post not found",
         post: null,
       };
     }
 
-    if (user.authorId !== userInfo.userId) {
+    if (existingPost.authorId !== userInfo.userId) {
       return {
         userError: "You can only update your own posts",
         post: null,
       };
     }
-    const post=await prisma.post.findUnique({
-        where:{id:args.postId}
-    });
 
-    if(!post){
-        return {
-            userError:"Post not found",
-            post:null
-        }
-    }
-    
     const updatedPost = await prisma.post.update({
       where: { id: Number(id) },
       data: {
-        title: post.title || existingPost.title,
-        content: post.content || existingPost.content,
+        title: post.title ?? existingPost.title,
+        content: post.content ?? existingPost.content,
       },
     });
     return {
       userError: null,
       post: updatedPost,
     };
-  }
+  },
 };
