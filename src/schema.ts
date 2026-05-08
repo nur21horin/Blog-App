@@ -2,7 +2,9 @@ export const typeDefs = `#graphql
 
 type Query {
 me: User
+users: [User]
 posts: [Post]
+profile(userId: ID!): Profile
 
 }
 
@@ -37,7 +39,7 @@ posts: [Post]
   id: ID!
   bio: String!
   createdAt: String!
-  user: User
+  user: User!
   }
 
   type AuthPayload{
