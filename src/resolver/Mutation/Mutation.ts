@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/prisma.js";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { jswtHelper } from "../utilis/jwtHealper.js";
@@ -13,7 +13,7 @@ interface UserInfo {
 }
 
 export const Mutation = {
-    signup: async (parent: any, args: UserInfo, context: any) => {
+    signup: async (parent: any, args: UserInfo, {prisma}: any) => {
       const isExit = await prisma.user.findFirst({
         where: { email: args.email },
       });
@@ -45,7 +45,7 @@ export const Mutation = {
         token,
       };
     },
-    signin: async (parent: any, args: UserInfo, context: any) => {
+    signin: async (parent: any, args: UserInfo, {prisma}: any) => {
       const user = await prisma.user.findFirst({
         where: { email: args.email },
       });
@@ -72,4 +72,12 @@ export const Mutation = {
         token,
       };
     },
+    addPost: async (parent: any, args: any, { prisma}: any) => {
+      if (!userId) {
+        return {
+          userError: "Unauthorized",
+          post: null,
+        };
+      }
+    
   },
