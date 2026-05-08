@@ -9,8 +9,8 @@ posts: [Post]
   type Mutation {
     signup(name: String!, email: String!, password: String!,bio:String):AuthPayload,
     signin(email: String!, password: String!):AuthPayload,
-    addPost(title: String!, content: String!): PostPayload,
-    updatePost(id: ID!, title: String, content: String): PostPayload,
+    addPost(post:PostInput!): PostPayload,
+    updatePost(id: ID!, post:PostInput): PostPayload,
     deletePost(id: ID!): Post
 
   }
@@ -49,5 +49,9 @@ posts: [Post]
   useError: String
   post: Post
   }
+
+  type PostInput{
+  title: String
+  content: String}
 
 `;
