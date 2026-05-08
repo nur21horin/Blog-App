@@ -108,21 +108,33 @@ export const Mutation = {
         post: null,
       };
     }
-    const existingPost = await prisma.post.findUnique({
-      where: { id: Number(id) },
+    const user = await prisma.post.findUnique({
+      where: { id:userInfo.userId },
     });
-    if (!existingPost) {
+    if (!user) {
       return {
-        userError: "Post not found",
+        userError: "User not found",
         post: null,
       };
     }
-    if (existingPost.authorId !== userInfo.userId) {
+
+    if (user.authorId !== userInfo.userId) {
       return {
         userError: "You can only update your own posts",
         post: null,
       };
     }
+    const post=await prisma.post.findUnique({
+        where:{id:args.postId}
+    });
+
+    if(!post){
+        return {
+            userError:"Post not found",
+            post:null
+        }
+    }
+    
     const updatedPost = await prisma.post.update({
       where: { id: Number(id) },
       data: {
