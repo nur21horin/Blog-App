@@ -6,6 +6,7 @@ import { resolvers } from "./resolver/index.js";
 import { prisma } from "./lib/prisma.js";
 import type { PrismaClient, Prisma } from "./generated/prisma/client.js";
 import type { DefaultArgs } from "@prisma/client/runtime/library.js";
+import { jwtHelper } from "./utilis/jwtHealper.js";
 
 interface Context {
   prisma: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
@@ -19,7 +20,8 @@ const main = async () => {
 
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
-    context: async (): Promise<Context> => {
+    context: async ({req}): Promise<Context> => {
+      const userInfo=await jwtHelper.getUserInfoFromToken(req.headers.authorization as String);,
       return {
         prisma,
       };

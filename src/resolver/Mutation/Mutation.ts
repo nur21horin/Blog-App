@@ -39,7 +39,7 @@ export const Mutation = {
           },
         });
       }
-      const token = await jswtHelper({ userId: newUser.id }, config.secret);
+      const token = await jswtHelper.generateToken({ userId: newUser.id }, config.secret);
       return {
         userError: null,
         token,
@@ -66,7 +66,7 @@ export const Mutation = {
           token: null,
         };
       }
-      const token = await jswtHelper({ userId: user.id }, config.secret);
+      const token = await jwtHelper.generateToken({ userId: user.id }, config.secret);
       return {
         userError: null,
         token,
