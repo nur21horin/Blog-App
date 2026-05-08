@@ -5,6 +5,10 @@ export const User = {
       return await prisma.post.findMany({
         where: { authorId: parent.id },
       });
+    }else{
+        return await prisma.post.findMany({
+        where: { authorId: parent.id, published: true },
+        });
     }
   },
 };
