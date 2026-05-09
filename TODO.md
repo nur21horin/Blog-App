@@ -3,3 +3,4 @@
 - [ ] Update package.json scripts (build/dev/start).
 - [ ] Build with tsc and run server from dist.
 - [ ] Verify health endpoint works: http://localhost:4000/\_health
+- [ ] [ ] Build with tsc and run server from dist.
